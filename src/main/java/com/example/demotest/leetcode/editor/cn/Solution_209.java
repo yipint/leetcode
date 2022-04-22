@@ -48,7 +48,7 @@ package com.example.demotest.leetcode.editor.cn;//给定一个含有 n 个正整
 
 //frontendQuestionId: 209
 //leetcode submit region begin(Prohibit modification and deletion)
-class Solution {
+class Solution_209 {
     public static int minSubArrayLen(int target, int[] nums) {
         if (nums.length == 1) {
             return nums[0] >= target ? 1 : 0;
