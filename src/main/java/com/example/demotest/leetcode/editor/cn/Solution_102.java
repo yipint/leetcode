@@ -57,6 +57,28 @@ import java.util.Queue;
  * }
  */
 class Solution_102 {
+
+    public static void levelOrderDg(TreeNode root, List<List<Integer>> result, int level) {
+        if (root == null) {
+            return;
+        }
+        if (result.size() < level) {
+            List<Integer> cur = new ArrayList<>();
+            result.add(cur);
+        }
+        result.get(level - 1).add(root.val);
+        levelOrderDg(root.left, result, level + 1);
+        levelOrderDg(root.right,  result, level + 1);
+    }
+
+    public static void main(String[] args) {
+
+        List<List<Integer>> result = new ArrayList<>();
+        TreeNode testData = TestData.constructTree();
+        levelOrderDg(testData, result, 1);
+        System.out.printf(result.toString());
+    }
+
     public static List<List<Integer>> levelOrder(TreeNode root) {
         List<List<Integer>> result = new ArrayList<>();
         //dfs(root, 0, result);
@@ -103,20 +125,5 @@ class Solution_102 {
         }
     }
 
-    public static void main(String[] args) {
-        TreeNode left = new TreeNode(2);
-        left.left = new TreeNode(4);
-        left.right = new TreeNode(5);
-
-        TreeNode right = new TreeNode(3);
-        right.left = new TreeNode(6);
-        right.right = new TreeNode(7);
-
-        TreeNode root = new TreeNode(1);
-        root.left = left;
-        root.right = right;
-
-        System.out.printf(levelOrder(root).toString());
-    }
 }
 //leetcode submit region end(Prohibit modification and deletion)

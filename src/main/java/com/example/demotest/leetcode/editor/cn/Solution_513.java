@@ -1,36 +1,40 @@
-package com.example.demotest.leetcode.editor.cn;//给定一棵二叉树的根节点 root ，请找出该二叉树中每一层的最大值。
+package com.example.demotest.leetcode.editor.cn;//给定一个二叉树的 根节点 root，请找出该二叉树的 最底层 最左边 节点的值。
+//
+// 假设二叉树中至少有一个节点。 
 //
 // 
 //
-// 示例1： 
+// 示例 1: 
 //
 // 
 //
 // 
-//输入: root = [1,3,2,5,3,null,9]
-//输出: [1,3,9]
+//输入: root = [2,1,3]
+//输出: 1
 // 
 //
-// 示例2： 
-//
-// 
-//输入: root = [1,2,3]
-//输出: [1,3]
-// 
+// 示例 2: 
 //
 // 
 //
-// 提示： 
+// 
+//输入: [1,2,3,4,null,5,6,null,null,7]
+//输出: 7
+// 
 //
 // 
-// 二叉树的节点个数的范围是 [0,10⁴] 
+//
+// 提示: 
+//
+// 
+// 二叉树的节点个数的范围是 [1,10⁴] 
+// 
 // -2³¹ <= Node.val <= 2³¹ - 1 
 // 
 //
-// 
-// Related Topics 树 深度优先搜索 广度优先搜索 二叉树 👍 259 👎 0
+// Related Topics 树 深度优先搜索 广度优先搜索 二叉树 👍 493 👎 0
 
-//frontendQuestionId: 515
+//frontendQuestionId: 513
 //leetcode submit region begin(Prohibit modification and deletion)
 
 import java.util.ArrayList;
@@ -53,37 +57,33 @@ import java.util.Queue;
  *     }
  * }
  */
-class Solution {
-    public List<Integer> largestValues(TreeNode root) {
-        List<Integer> result = new ArrayList<>();
-        Queue<TreeNode> queue = new LinkedList<>();
+class Solution_513 {
+    public static int findBottomLeftValue(TreeNode root) {
         if (root == null) {
-            return result;
+            return 0;
         }
+        int maxLeft = 0;
+        //层序遍历一下
+        Queue<TreeNode> queue = new LinkedList<>();
         queue.add(root);
         while (!queue.isEmpty()) {
-
-            int len = queue.size();
-            int max = 0;
-            while (len > 0) {
+            int length = queue.size();
+            List<Integer> list = new ArrayList<>();
+            while (length > 0) {
                 TreeNode tmp = queue.poll();
-                max = Math.max(max, tmp.val);
+                list.add(tmp.val);
                 if (tmp.left != null) {
                     queue.add(tmp.left);
                 }
                 if (tmp.right != null) {
                     queue.add(tmp.right);
                 }
-                len --;
+                length --;
             }
-            result.add(max);
+            maxLeft = list.get(0);
         }
-        return result;
+        return maxLeft;
     }
 
-
-    public static void main(String[] args) {
-
-    }
 }
 //leetcode submit region end(Prohibit modification and deletion)

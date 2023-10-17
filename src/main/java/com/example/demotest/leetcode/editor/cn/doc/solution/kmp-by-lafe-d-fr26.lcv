@@ -1,0 +1,31 @@
+### 解题思路
+
+根据前缀数组连续递增的j判断 如果是可重复那么连续的递增j肯定是子串的倍数
+
+### 代码
+
+* java
+
+```java
+class Solution {
+    public boolean repeatedSubstringPattern(String s) {
+        int[] data = new int[s.length()];
+
+        data[0] = 0;
+        int j = 0;
+        for(int i = 1; i < s.length(); i++){
+            while(j > 0 && s.charAt(i) != s.charAt(j)){
+                j = data[j-1];
+            }
+            if(s.charAt(i) == s.charAt(j)){
+                j++;
+            }
+            data[i] = j;
+        }
+        if(j % (s.length() - j) == 0 && j != 0)return true;
+
+        return false;
+    }
+}
+```
+

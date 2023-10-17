@@ -76,26 +76,30 @@ class Solution_midOrder {
 //    }
 
     public static List<Integer> inorderTraversal(TreeNode root) {
-        Stack<TreeNode> stack = new Stack<>();
         List<Integer> result = new ArrayList<>();
-
-        while (root != null || !stack.isEmpty()) {
-            if (root != null) {
-                stack.push(root);
-                root = root.left;
+        if (root == null) {
+            return result;
+        }
+        Stack<TreeNode> stack = new Stack<>();
+        TreeNode tmp = root;
+        while (tmp != null || !stack.isEmpty()) {
+            if (tmp != null) {
+                stack.push(tmp);
+                tmp = tmp.left;
             } else {
-                root = stack.pop();
-                result.add(root.val);
-                root = root.right;
+                TreeNode tmp1 = stack.pop();
+                result.add(tmp1.val);
+                if (null != tmp1.right) {
+                    tmp = tmp1.right;
+                }
             }
         }
         return result;
     }
 
     public static void main(String[] args) {
-//        TreeNode test = TreeNode.constructTree();
-        TreeNode treeNode = new TreeNode(1);
-        System.out.printf(inorderTraversal(treeNode).toString());
+        TreeNode test = TestData.constructTree();
+        System.out.printf(inorderTraversal(test).toString());
     }
 }
 //leetcode submit region end(Prohibit modification and deletion)

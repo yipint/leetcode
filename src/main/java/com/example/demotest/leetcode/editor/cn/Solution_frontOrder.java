@@ -55,6 +55,7 @@ package com.example.demotest.leetcode.editor.cn;//给你二叉树的根节点 ro
 //leetcode submit region begin(Prohibit modification and deletion)
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Stack;
 
@@ -75,50 +76,49 @@ import java.util.Stack;
  */
 class Solution_frontOrder {
 
-    public void pt(TreeNode treeNode, List<Integer> result) {
-        if (treeNode == null) {
+    //先序遍历 根左右
+
+    /**
+     * 先序递归
+     */
+    public static void preorderTraversal(TreeNode root, List<Integer> result) {
+        if (root == null) {
             return;
         }
-        result.add(treeNode.val);
-        pt(treeNode.left, result);
-        pt(treeNode.right, result);
+        result.add(root.val);
+        preorderTraversal(root.left, result);
+        preorderTraversal(root.right, result);
     }
 
-//    public List<Integer> preorderTraversal(TreeNode root) {
-//        List<Integer> result = new ArrayList<>();
-//        pt(root, result);
-//        return result;
-//    }
 
-    public static List<Integer> preorderTraversal(TreeNode root) {
+    /**
+     * 先序非递归
+     */
+    public static List<Integer> preorderTraversal1(TreeNode root) {
         List<Integer> result = new ArrayList<>();
-        Stack<TreeNode> stack = new Stack<>();
-        if (root != null) {
-            stack.push(root);
-            result.add(stack.pop().val);
+        if (root == null) {
+            return result;
         }
-
-        while (root != null) {
-            if (root.right != null) {
-                stack.push(root.right);
+        Stack<TreeNode> stack = new Stack<>();
+        stack.push(root);
+        while (!stack.isEmpty()) {
+            TreeNode tmp = stack.pop();
+            result.add(tmp.val);
+            if (tmp.right != null) {
+                stack.push(tmp.right);
             }
-            if (root.left != null) {
-                stack.push(root.left);
-            }
-            if (stack.size() > 0) {
-                root = stack.pop();
-                result.add(root.val);
-            } else {
-                break;
+            if (tmp.left != null) {
+                stack.push(tmp.left);
             }
         }
         return result;
     }
 
     public static void main(String[] args) {
-//        TreeNode root = TreeNode.constructTree();
-//
-//        System.out.printf(preorderTraversal(root).toString());
+        TreeNode root = TestData.constructTree();
+//        List<Integer> result = new ArrayList<>();
+//        preorderTraversal(root, result);
+        System.out.printf(preorderTraversal1(root).toString());
     }
 }
 //leetcode submit region end(Prohibit modification and deletion)
